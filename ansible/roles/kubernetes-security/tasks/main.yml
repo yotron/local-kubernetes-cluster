@@ -1,0 +1,9 @@
+- name: Copy Calico policy and network controller
+  become: false
+  copy:
+    src: calico.yml
+    dest: ~/manifests/calico.yml
+- name: install Calico network and policy controller
+  command: kubectl apply -f ~/manifests/calico.yml
+  become: false
+  ignore_errors: yes

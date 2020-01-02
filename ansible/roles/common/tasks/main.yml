@@ -1,0 +1,21 @@
+- name: get ETCD_HOST_IP
+  shell: ip addr show eth1 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1
+  register: ETCD_HOST_IP
+- name: get ETCD_NAME
+  shell: hostname -s
+  register: ETCD_NAME
+- name: Write localhost to hosts
+  shell: "echo '127.0.0.1\tlocalhost' > /etc/hosts"
+  become: true
+- name: Remove swapfile from /etc/fstab
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  with_items:
+    - swap
+    - none
+- name: Disable SWAP since kubernetes can't work with swap enabled
+  shell: |
+    swapoff -a
+

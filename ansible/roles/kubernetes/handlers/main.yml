@@ -1,0 +1,34 @@
+- name: restart kubelet
+  service:
+    name: kubelet
+    state: restarted
+    enabled: yes
+  listen: "restart all services"
+- name: restart kube-proxy
+  service:
+    name: kube-proxy
+    state: restarted
+    enabled: yes
+  listen: "restart all services"
+- name: restart kube-apiserver
+  service:
+    name: kube-apiserver
+    state: restarted
+    enabled: yes
+  listen: "restart master services"
+- name: restart kube-controller-manager
+  service:
+    name: kube-controller-manager
+    state: restarted
+    enabled: yes
+  listen: "restart master services"
+- name: restart kube-scheduler
+  service:
+    name: kube-scheduler
+    state: restarted
+    enabled: yes
+  listen: "restart master services"
+- name: sleep for 10 seconds for starting the services
+  wait_for:
+    timeout: 10
+  listen: "restart all services"

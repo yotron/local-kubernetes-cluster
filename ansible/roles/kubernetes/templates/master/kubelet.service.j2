@@ -1,0 +1,23 @@
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/kubelet \
+--address=0.0.0.0 \
+--cluster-dns=10.100.0.10 \
+--cluster-domain=cluster.local \
+--hostname-override={{ ETCD_HOST_IP.stdout }} \
+--logtostderr=true \
+--register-node=true \
+--register-schedulable=false \
+--cert-dir=/var/run/kubernetes \
+--kubeconfig=/etc/kubernetes/kubeconfig \
+--network-plugin=cni
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

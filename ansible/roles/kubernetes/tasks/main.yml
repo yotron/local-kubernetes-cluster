@@ -1,0 +1,57 @@
+- name: Create a directory /etc/kubernetes
+  file:
+    path: /etc/kubernetes
+    owner: "vagrant"
+    group: "vagrant"
+    state: directory
+    recurse: true
+    mode: '755'
+- name: Copy services files
+  copy:
+    src: "kubeconfig"
+    dest: /etc/kubernetes/kubeconfig
+    owner: root
+    mode: "0644"
+- name: Create a directory $HOME/kube
+  file:
+    path: $HOME/kube
+    owner: "vagrant"
+    group: "vagrant"
+    state: directory
+    recurse: true
+    mode: '755'
+- name: Copy services files
+  copy:
+    src: "kubeconfig"
+    dest: $HOME/kube/config
+    owner: vagrant
+    mode: "0644"
+- name: Download kubelet
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubelet
+    dest: /usr/bin/kubelet
+    mode: '+x'
+    validate_certs: false
+- name: Download kube-proxy
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kube-proxy
+    dest: /usr/bin/kube-proxy
+    mode: '+x'
+    validate_certs: false
+- name: Download kubectl
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl
+    dest: /usr/bin/kubectl
+    mode: '+x'
+    validate_certs: false
+- include: master.yml
+  when: inventory_hostname in groups['master']
+- include: node.yml
+  when: inventory_hostname in groups['nodes']
+- meta: flush_handlers
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+- name: Copy master services files
+  copy:
+    src: "{{ item }}"
+    dest: /lib/systemd/system
+    owner: root
+    mode: "0644"
+  with_fileglob:
+    - "kube-proxy.service"
+- name: kubelet.service to /lib/systemd/system
+  template:
+    src: nodes/kubelet.service.j2
+    dest: /lib/systemd/system/kubelet.service
+    owner: root
+    group: root
+    mode: '0644'
+- name: activate sleeping for 10 sec
+  shell: echo sleep
+  notify:
+    - "reload systemctl"
+    - "restart all services"

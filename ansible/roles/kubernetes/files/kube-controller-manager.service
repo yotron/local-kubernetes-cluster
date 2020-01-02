@@ -1,0 +1,20 @@
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+Requires=kube-apiserver.service
+After=kube-apiserver.service
+[Service]
+# --cluster-cidr must match the IP Pool defined in the manifest
+ExecStart=/usr/bin/kube-controller-manager \
+--master=172.18.18.101:8080 \
+--service-account-private-key-file=/var/run/kubernetes/apiserver.key \
+--root-ca-file=/var/run/kubernetes/apiserver.crt \
+--logtostderr=true \
+--allocate-node-cidrs=true \
+--cluster-cidr="192.168.0.0/16" \
+--cert-dir=/var/run/kubernetes
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

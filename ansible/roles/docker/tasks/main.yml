@@ -1,0 +1,44 @@
+- name: Ensure group "etcd" exists
+  group:
+    name: docker
+    system: true
+    state: present
+- name: Add the user 'etcd'
+  user:
+    name: docker
+    comment: docker
+    system: true
+    shell: /sbin/nologin
+    group: docker
+- name: Unarchive docker
+  unarchive:
+    src: https://download.docker.com/linux/static/stable/x86_64/docker-19.03.5.tgz
+    dest: /usr/bin/
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+- name: Copy docker daemon config file
+  copy:
+    src: daemon.json
+    dest: /etc/docker/
+    owner: docker
+    group: docker
+    mode: "0644"
+- name: Set DOCKER_HOST as global
+  copy:
+    src: docker_environment.sh
+    dest: /etc/profile.d
+    owner: docker
+    group: docker
+    mode: "0755"
+- name: Copy docker files
+  copy:
+    src: "{{ item }}"
+    dest: /lib/systemd/system
+    owner: docker
+    group: docker
+    mode: "0644"
+  with_fileglob:
+    - "*.service"
+  notify:
+    - reload systemctl
+    - "restart all services"

@@ -1,0 +1,8 @@
+[Unit]
+Description=Docker daemon
+Documentation=https://docs.docker.com/install/linux
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd
+Restart=always
+RestartSec=10

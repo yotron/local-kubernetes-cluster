@@ -1,0 +1,21 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+Requires=etcd.service
+After=etcd.service
+[Service]
+ExecStart=/usr/bin/kube-apiserver \
+--allow-privileged=true \
+--etcd-servers=http://172.18.18.101:2379 \
+--runtime-config=networking.k8s.io/v1=true,networking.k8s.io/v1/networkpolicies=true \
+--insecure-bind-address=0.0.0.0 \
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota \
+--advertise-address=172.18.18.101 \
+--service-cluster-ip-range=10.100.0.0/24 \
+--logtostderr=true \
+--cert-dir=/var/run/kubernetes
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

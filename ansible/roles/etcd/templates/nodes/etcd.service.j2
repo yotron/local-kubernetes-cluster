@@ -1,0 +1,15 @@
+[Unit]
+Description=etcd service
+Documentation=https://github.com/etcd-io/etcd
+
+[Service]
+Type=notify
+User=etcd
+ExecStart=/usr/bin/etcd \
+--proxy=on \
+--listen-client-urls=http://127.0.0.1:2379 \
+--initial-cluster=etcdserver=http://172.18.18.101:2380 \
+--data-dir=/var/lib/etcd
+
+[Install]
+WantedBy=multi-user.target

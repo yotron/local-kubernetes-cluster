@@ -1,0 +1,53 @@
+- name: Download kube-apiserver
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kube-apiserver
+    dest: /usr/bin/kube-apiserver
+    mode: '+x'
+    validate_certs: false
+- name: Download kube-controller-manager
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kube-controller-manager
+    dest: /usr/bin/kube-controller-manager
+    mode: '+x'
+    validate_certs: false
+- name: Download kube-scheduler
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kube-scheduler
+    dest: /usr/bin/kube-scheduler
+    mode: '+x'
+    validate_certs: false
+- name: Create a manifests directory for vagrantuser
+  become: false
+  file:
+    path: ~/manifests/
+    state: directory
+    recurse: true
+- name: Create a manifests directory
+  file:
+    path: /etc/kubernetes/manifests/
+    owner: vagrant
+    group: vagrant
+    state: directory
+    recurse: true
+    mode: '0644'
+- name: Copy master services files
+  copy:
+    src: "{{ item }}"
+    dest: /lib/systemd/system
+    owner: root
+    mode: "0644"
+  with_fileglob:
+    - "*.service"
+- name: kubelet.service to /lib/systemd/system
+  template:
+    src: master/kubelet.service.j2
+    dest: /lib/systemd/system/kubelet.service
+    owner: root
+    group: root
+    mode: '0644'
+- name: activate sleeping for 10 sec
+  shell: echo sleep
+  notify:
+    - "reload systemctl"
+    - "restart master services"
+    - "restart all services"

@@ -1,0 +1,56 @@
+- name: Unarchive etcd
+  unarchive:
+    src: https://github.com/etcd-io/etcd/releases/download/v3.3.18/etcd-v3.3.18-linux-amd64.tar.gz
+    dest: /usr/bin/
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+- name: Ensure group "etcd" exists
+  group:
+    name: etcd
+    system: true
+    state: present
+- name: Add the user 'etcd'
+  user:
+    name: etcd
+    comment: etcd
+    system: true
+    shell: /sbin/nologin
+    group: etcd
+- name: Create a directory /var/lib/etcd/
+  file:
+    path: /var/lib/etcd
+    owner: "etcd"
+    group: "etcd"
+    state: directory
+    recurse: true
+    mode: '755'
+- name: Create a directory /etc/etcd
+  file:
+    path: /etc/etcd
+    owner: "etcd"
+    group: "etcd"
+    state: directory
+    recurse: true
+    mode: '0644'
+- name: etcd.service to /lib/systemd/system
+  template:
+    src: master/etcd.service.j2
+    dest: /lib/systemd/system/etcd.service
+    owner: etcd
+    group: etcd
+    mode: '0644'
+  when: "inventory_hostname in groups['master']"
+  notify:
+    - reload systemctl
+    - "restart all services"
+- name: etcd.service to /lib/systemd/system
+  template:
+    src: nodes/etcd.service.j2
+    dest: /lib/systemd/system/etcd.service
+    owner: etcd
+    group: etcd
+    mode: '0644'
+  when: "inventory_hostname in groups['nodes']"
+  notify:
+    - "reload systemctl"
+    - "restart all services"

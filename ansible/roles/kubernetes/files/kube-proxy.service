@@ -1,0 +1,17 @@
+[Unit]
+Description=Kubernetes Proxy
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+Requires=kubelet.service
+After=kubelet.service
+[Service]
+# --cluster-cidr must match the IP Pool defined in the manifest
+ExecStart=/usr/bin/kube-proxy \
+--master=http://172.18.18.101:8080 \
+--cluster-cidr="192.168.0.0/16" \
+--proxy-mode=iptables \
+--logtostderr=true
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

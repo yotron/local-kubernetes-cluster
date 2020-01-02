@@ -1,0 +1,19 @@
+[Unit]
+Description=etcd service
+Documentation=https://github.com/etcd-io/etcd
+
+[Service]
+Type=notify
+User=etcd
+ExecStart=/usr/bin/etcd \
+--name="etcdserver" \
+--listen-client-urls=http://0.0.0.0:2379 \
+--advertise-client-urls=http://{{ ETCD_HOST_IP.stdout }}:2379 \
+--initial-cluster=etcdserver=http://{{ ETCD_HOST_IP.stdout }}:2380 \
+--initial-advertise-peer-urls=http://{{ ETCD_HOST_IP.stdout }}:2380 \
+--listen-client-urls=http://0.0.0.0:2379,http://0.0.0.0:4001 \
+--listen-peer-urls=http://0.0.0.0:2380 \
+--data-dir=/var/lib/etcd
+
+[Install]
+WantedBy=multi-user.target
