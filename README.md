@@ -3,7 +3,7 @@
 [YOTRON](http://www.yotron.de) is a consultancy company which is focused on DevOps, Cloudmanagement and 
 Data Management with NOSQL and SQL-Databases. Visit us on [ www.yotron.de ](http://www.yotron.de)
 
-# local Kubernetes Cluster
+# Local Kubernetes Cluster
 With this project you can deploy a simple Kubernetes cluster with one master and two nodes in a base configuration. 
 But you can deploy as much nodes you (or your host machine) wants.
 
@@ -36,7 +36,7 @@ You have the full control of all of the versions you want to use:
 - SetUp is independent from a Package Management like yum, apt-get
 - Save for restart of complete Kubernetes
 
-The installtion process contains 
+The installation process contains 
 - etcd service as a clustered key/value store (https://etcd.io/)
 - docker-service (https://www.docker.com/)
 - kubernetes services (https://kubernetes.io/)
@@ -50,10 +50,11 @@ Additional Controller which will be installed are
 - Calico for the network and policy controlling (https://www.projectcalico.org/)
 - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) 
 
-Requirements: 
+### Requirements 
 - Ansible Version > 2.0 (https://www.ansible.com/), tested with Version 5.2.34
 - Oracle Virtual Box (https://www.virtualbox.org/), tested with Version 5.2.34
 
+### Startup
 To start the Cluster an install all necessary components:
 
 `whoiami@mymachine:~$ vagrant up`
@@ -71,6 +72,8 @@ The start process begins with the Nodes and afterwards the master will be create
 Please be aware that ist tooks some time after the start of the vagrant host to get to the Kubernetes Dashboard. 
 
 Here are somme calls for checking the proper setup. 
+
+### Checks
 
 Please check the startup of the nodes and pods.
 
