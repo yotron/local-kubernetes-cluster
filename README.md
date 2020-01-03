@@ -156,6 +156,8 @@ Dashboard URL
   ![alt text](kubernetes_dashboard.png)
 
 ### own credentials
-created by Joern Kleinbub, YOTRON, 03.01.2020
+created by [Joern Kleinbub](https://github.com/joernkleinbub), YOTRON, 03.01.2020
 
-info@yotron.de, www.yotron.de
+Vist me at [LinkedIn](https://www.linkedin.com/in/j%C3%B6rn-kleinbub/) 
+
+Or via EMail <joern.kleinbub@yotron.de>, www.yotron.de
