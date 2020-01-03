@@ -105,7 +105,7 @@ Dashboard URL
 
 `https://172.18.18.102:30000/`
 
-### Authenticaticate against the Kubernetes Dashboard
+### Authenticate against the Kubernetes Dashboard
 
 - the lazy way:
 
