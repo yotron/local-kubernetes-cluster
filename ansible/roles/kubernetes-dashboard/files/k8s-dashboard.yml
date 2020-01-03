@@ -40,8 +40,10 @@ spec:
   ports:
     - port: 443
       targetPort: 8443
+      nodePort: 30000
   selector:
     k8s-app: kubernetes-dashboard
+  type: NodePort
 
 ---
 
@@ -196,6 +198,7 @@ spec:
             - --auto-generate-certificates
             - --namespace=kubernetes-dashboard
             - --enable-skip-login
+            - --enable-insecure-login=true
             # Uncomment the following line to manually specify Kubernetes API server Host
             # If not specified, Dashboard will attempt to auto discover the API server and connect
             # to it. Uncomment only if the default does not work.
@@ -284,8 +287,8 @@ spec:
             initialDelaySeconds: 30
             timeoutSeconds: 30
           volumeMounts:
-          - mountPath: /tmp
-            name: tmp-volume
+            - mountPath: /tmp
+              name: tmp-volume
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

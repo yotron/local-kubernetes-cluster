@@ -11,9 +11,12 @@ ExecStart=/usr/bin/kube-apiserver \
 --insecure-bind-address=0.0.0.0 \
 --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota \
 --advertise-address=172.18.18.101 \
+--secure-port=6443 \
+--insecure-port=8080 \
 --service-cluster-ip-range=10.100.0.0/24 \
 --logtostderr=true \
---cert-dir=/var/run/kubernetes
+--cert-dir=/var/run/kubernetes \
+--log-dir=/var/log/kubeapiserver
 Restart=always
 RestartSec=10
 

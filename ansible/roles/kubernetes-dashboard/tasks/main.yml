@@ -1,4 +1,4 @@
-- name: Copy file with owner and permissions
+- name: Copy k8s-dashboard manifest
   become: false
   copy:
     src: k8s-dashboard.yml

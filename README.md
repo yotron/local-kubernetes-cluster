@@ -63,11 +63,11 @@ To start the Cluster an install all necessary components:
 
 The following node will be created:
 
-- k8s-master
+- *k8s-master*
 
-- k8s-node-01
+- *k8s-node-01*
 
-- k8s-node-02
+- *k8s-node-02*
 
 The start process begins with the Nodes and afterwards the master will be created.
 
@@ -79,7 +79,7 @@ Here are somme calls for checking the proper setup.
 
 Please check the startup of the nodes and pods.
 
-Login to vagrant:
+Login to *k8s-master* via Vagrant  :
 
 `whoami@mymachine:~$ vagrant ssh k8s-master`
 
@@ -103,44 +103,59 @@ kubernetes-dashboard   kubernetes-dashboard-5996555fd8-l6hbj        1/1     Runn
 
 Dashboard URL
 
-`http://172.18.18.101:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login`
+`https://172.18.18.102:30000/`
 
-The dashboard is configured for skipping the Authentication. It is highly recommended not to do that in production.
+### Authenticaticate against the Kubernetes Dashboard
 
-### Setup a authentication token for the Kubernetes Dashboard
-```
-vagrant@k8s-master:~$ kubectl delete clusterrolebinding dashboard-admin-sa 
-clusterrolebinding.rbac.authorization.k8s.io "dashboard-admin-sa" deleted
-```
-```
-vagrant@k8s-master:~$ kubectl create clusterrolebinding kub-dashboard-sa --clusterrole=cluster-admin --serviceaccount=default:kub-dashboard-sa
-clusterrolebinding.rbac.authorization.k8s.io/kub-dashboard-sa created
-```
-```
-vagrant@k8s-master:~$ kubectl get secrets
-NAME                           TYPE                                  DATA   AGE
-default-token-nsvcm            kubernetes.io/service-account-token   3      19h
-kub-dashboard-sa-token-86lck   kubernetes.io/service-account-token   3      4m22s
-```
-```
-vagrant@k8s-master:~$ kubectl describe secret  kub-dashboard-sa-token-86lck
-Name:         kub-dashboard-sa-token-86lck
-Namespace:    default
-Labels:       <none>
-Annotations:  kubernetes.io/service-account.name: kub-dashboard-sa
-              kubernetes.io/service-account.uid: bdd87bb6-29b8-436b-8de3-592807bac0c5
+- the lazy way:
 
-Type:  kubernetes.io/service-account-token
-
-Data
-====
-token:      eyJhbGciOiJSUzI1NiIsImtpZCI6InVHU<this is a very long string>qu-MbHXmm10teNzQUPzbJpnlhxlVtFei8bQopYLWbIxKkDVpBj3wHiBY_y0Bd7j_AWi961eEssog
-ca.crt:     2286 bytes
-namespace:  7 bytes
-```
-
+  Just select `skip`. It is clear, that this environment is only usable for looking and testing not for production.
+  
+- the not so lazy way:
+ 
+  The Dashboard has an own ServiceAccount with which you can authentication against the Dashboard. 
+  To get a token for Authentication:
+  
+  Login to *k8s-master* via Vagrant  
+  `whoami@mymachine:~$ vagrant ssh k8s-master`
+  
+  ```
+  vagrant@k8s-master:~$ kubectl -n kubernetes-dashboard get secrets
+  NAME                               TYPE                                  DATA   AGE
+  default-token-9l272                kubernetes.io/service-account-token   3      2m30s
+  kubernetes-dashboard-certs         Opaque                                0      2m30s
+  kubernetes-dashboard-csrf          Opaque                                1      2m30s
+  kubernetes-dashboard-key-holder    Opaque                                2      2m30s
+  kubernetes-dashboard-token-28bfn   kubernetes.io/service-account-token   3      2m30s
+  ```
+  Please look for the secret with name `kubernetes-dashboard-token-...`. This is the service account you can use for the
+  authentication against the dashboard.
+  
+  Get the secret token: 
+  ```
+  vagrant@k8s-master:~$ kubectl -n kubernetes-dashboard describe  secret kubernetes-dashboard-token-28bfn
+  Name:         kubernetes-dashboard-token-28bfn
+  Namespace:    kubernetes-dashboard
+  Labels:       <none>
+  Annotations:  kubernetes.io/service-account.name: kubernetes-dashboard
+              kubernetes.io/service-account.uid: fbfdf673-8c87-41ad-9d09-cdca7e37f4ec
+  Type:  kubernetes.io/service-account-token
+  Data
+  ====
+  ca.crt:     2286 bytes
+  namespace:  20 bytes
+  token:      eyJhbGciOiJSUzI1NiIsImtpZC<This is a very long string>z-Dq3VRYD87kDkjW-CBxMl_L-7NOva31k8QBC2A
+  ```
+  
+  The Parameter `token` contains the token for Authentication against the Kubernetes Dashboard. Just Copy/Paste into the token area.
+  
+  ![alt text](kubernetes_dashboard_login_token.png)
+  
+  Welcome to the Kubernetes Dashboard.
+  
+  ![alt text](kubernetes_dashboard.png)
 
 ### own credentials
-created by Joern Kleinbub, YOTRON, 02.01.2020
+created by Joern Kleinbub, YOTRON, 03.01.2020
 
 info@yotron.de, www.yotron.de
