@@ -1,3 +1,4 @@
 /.idea/
 /local-kubernetes-cluster.iml
 /.vagrant/rgloader/
+/.vagrant/machines/k8s-master/virtualbox/
