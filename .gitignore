@@ -1,2 +1,3 @@
 /.idea/
 /local-kubernetes-cluster.iml
+/.vagrant/rgloader/

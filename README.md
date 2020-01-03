@@ -51,8 +51,10 @@ Additional Controller which will be installed are
 - [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) 
 
 ### Requirements 
-- Ansible Version (https://www.ansible.com/), tested with Version 2.9.2
+- Vagrant (https://www.vagrantup.com/), tested with version 2.2.4
 - Oracle Virtual Box (https://www.virtualbox.org/), tested with Version 5.2.34
+- Ansible Version (https://www.ansible.com/), tested with Version 2.9.2
+
 
 ### Startup
 To start the Cluster an install all necessary components:
