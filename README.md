@@ -43,12 +43,14 @@ You have the full control of all of the versions you want to use:
 The installation process contains 
 - etcd service as a clustered key/value store (https://etcd.io/)
 - docker-service (https://www.docker.com/)
+- CoreDNS as the DNS server (https://coredns.io/)
 - kubernetes services (https://kubernetes.io/)
   - kubelet
   - kube-apiserver
   - kube-controller-manager
   - kube-proxy
   - kube-scheduler
+
   
 Additional Controller which will be installed are 
 - Calico for the network and policy controlling (https://www.projectcalico.org/)

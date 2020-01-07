@@ -16,6 +16,11 @@
     dest: /usr/bin/kube-scheduler
     mode: '+x'
     validate_certs: false
+- name: Unarchive CoreDNS
+  unarchive:
+    src: https://github.com/coredns/coredns/releases/download/v1.6.6/coredns_1.6.6_linux_amd64.tgz
+    dest: /usr/bin/
+    remote_src: yes
 - name: Create a manifests directory for vagrantuser
   become: false
   file:

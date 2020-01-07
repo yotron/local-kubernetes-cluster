@@ -1,0 +1,11 @@
+[Unit]
+Description=CoreDNS
+Documentation=https://coredns.io/manual/toc/
+[Service]
+ExecStart=/usr/bin/coredns \
+-dns.port=1053
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

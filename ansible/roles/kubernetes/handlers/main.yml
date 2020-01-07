@@ -28,6 +28,12 @@
     state: restarted
     enabled: yes
   listen: "restart master services"
+- name: restart coredns
+  service:
+    name: coredns
+    state: restarted
+    enabled: yes
+  listen: "restart master services"
 - name: sleep for 10 seconds for starting the services
   wait_for:
     timeout: 10
