@@ -5,7 +5,11 @@ Data Management with NOSQL and SQL-Databases. Visit us on [ www.yotron.de ](http
 
 # Local Kubernetes Cluster
 With this project you can deploy a simple Kubernetes cluster with one master and two nodes in a base configuration. 
-But you can deploy as much nodes you (or your host machine) wants.
+But you can deploy as much nodes you wants (or your host machine is able too run).
+
+This Kubernetes Deployment based purely on kubectl manifests. No kubeadmin tasks and no helm scripting. The complete
+setup is also pure Ansible. No scripting with uploaded Shellscript, only configuration in Ansible. This is perhaps the most 
+pure Kubernetes setup of a local Kubernetes cluster in GitHub.   
 
 The deployment based on Vagrant with Virtualbox and Ansible. 
 
