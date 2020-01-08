@@ -9,3 +9,4 @@
     - { role: kubernetes }
     - { role: kubernetes-security, when: "inventory_hostname in groups['master']" }
     - { role: kubernetes-dashboard, when: "inventory_hostname in groups['master']" }
+    - { role: kubernetes-dns, when: "inventory_hostname in groups['master']" }

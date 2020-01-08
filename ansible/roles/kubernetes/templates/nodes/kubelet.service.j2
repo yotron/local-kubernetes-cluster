@@ -7,11 +7,12 @@ Requires=docker.service
 [Service]
 ExecStart=/usr/bin/kubelet \
 --address=0.0.0.0 \
---cluster-dns=172.18.18.101 \
+--cluster-dns=10.100.0.10 \
 --cluster-domain=cluster.local \
 --hostname-override={{ ETCD_HOST_IP.stdout }} \
 --logtostderr=true \
 --cert-dir=/var/run/kubernetes \
+--resolv-conf=/etc/resolv.conf \
 --kubeconfig=/etc/kubernetes/kubeconfig \
 --network-plugin=cni
 Restart=always

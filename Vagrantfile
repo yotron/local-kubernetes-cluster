@@ -46,13 +46,13 @@ Vagrant.configure("2") do |config|
         ansible.become = true
         ansible.host_key_checking = false
       end
-      # This is a workaround when Kubernetes will restart completly. The secret keys and the container must be recreated.
-      # We have to admit, that this is not a common scenario for Kubernetes in production mode.
-      # But perhaps there is a better way to solve the problem ...
+      # This is a workaround when Kubernetes will restart completly. The secret keys (Tokens) and the container must be recreated.
+      # The complete restart of Kubernetes is not a common scenario in production mode.
       if(vm_name == "k8s-master") then
           $script = <<-SCRIPT
             kubectl replace --force -f ~/manifests/calico.yml && \
-            kubectl replace --force -f ~/manifests/k8s-dashboard.yml
+            kubectl replace --force -f ~/manifests/k8s-dashboard.yml && \
+            kubectl replace --force -f ~/manifests/coredns.yml
            SCRIPT
            host.vm.provision "shell", run: "always", privileged: false, inline: $script
        end

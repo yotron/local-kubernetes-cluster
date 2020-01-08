@@ -1,0 +1,9 @@
+- name: Copy coredns to ~/manifest
+  become: false
+  copy:
+    src: coredns.yml
+    dest: ~/manifests/coredns.yml
+- name: install coredns pod
+  command: kubectl apply -f ~/manifests/coredns.yml
+  become: false
+  ignore_errors: yes
