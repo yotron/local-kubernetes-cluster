@@ -90,7 +90,7 @@ Login to *k8s-master* via Vagrant  :
 `whoami@mymachine:~$ vagrant ssh k8s-master`
 
 ```
-vagrant@k8s-master:~$ kubeeyJhbGciOiJSUzI1NiIsImtpZCI6InVHUTdKaHgtcmNIVEpmaGUyT0pjZjA1VjJhS05oUG95NmRDb1RGWGlhWEEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRhc2hib2FyZC1hZG1pbi1zYS10b2tlbi1waDl0cyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tc2EiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJmYzgxNzU0MC00YjhhLTQ2OWQtYjcxYy04NzdlYzU4N2U2ZTkiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpkYXNoYm9hcmQtYWRtaW4tc2EifQ.TVC_jPSE4CNNlWVgHuMu5W8I7F7lmVXNftqzFHb5X3XVH_Pdj28nhItkrbZIZKxo2WOrlr_ypI59Tu2g1gR4nI19Og4NllVepRTYReKD-IHsfjgi3z9iHMx-QW_X5IIvFN76C5OuAHSFqqk6B1teUjNtrOeQdlAk6jMLtttfO8pc72dx1ksXtFvVloVjvrcXkWt0UbwLcqA-3etkj06WpMuFpRVtDUo3ArZYl94WcGyun_5zDPY1NfLJGbfLQjFABP2dtmYAm30GLDq9pXYnFgctl get nodes
+vagrant@k8s-master:~$ kubectl get nodes
 NAME            STATUS                     ROLES    AGE     VERSION
 172.18.18.101   Ready,SchedulingDisabled   <none>   6m17s   v1.17.0
 172.18.18.102   Ready                      <none>   6m16s   v1.17.0
@@ -99,7 +99,7 @@ NAME            STATUS                     ROLES    AGE     VERSION
 ```
 vagrant@k8s-master:~$ kubectl get pods --all-namespaces
 NAMESPACE              NAME                                         READY   STATUS    RESTARTS   AGE
-kube-system            ### Checkscalico-kube-controllers-648f4868b8-62tcc     1/1     Running   0          3m33s
+kube-system            calico-kube-controllers-648f4868b8-62tcc     1/1     Running   0          3m33s
 kube-system            calico-node-clncb                            1/1     Running   0          3m33s
 kube-system            calico-node-z4m26                            1/1     Running   0          3m33s
 kube-system            calico-node-z4pnn                            1/1     Running   0          3m33s
