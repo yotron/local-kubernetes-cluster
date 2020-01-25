@@ -3,6 +3,22 @@
 [YOTRON](http://www.yotron.de) is a consultancy company which is focused on DevOps, Cloudmanagement and 
 Data Management with NOSQL and SQL-Databases. Visit us on [ www.yotron.de ](http://www.yotron.de)
 
+
+# content
+ - [Local Kubernetes Cluster](#local-kubernetes-cluster)
+
+     - [Requirements](#requirements)
+
+     - [Startup](#startup)
+
+     - [Checks](#checks)
+
+     - [Authenticate against the Kubernetes Dashboard](#authenticate-against-the-kubernetes-dashboard)
+
+     - [own credentials](#own-credentials)
+
+(this Menu was created by [Markdown Menu](https://www.markdownmenu.com))
+
 # Local Kubernetes Cluster
 With this project you can deploy a simple Kubernetes cluster with one master and two nodes in a base configuration. 
 But you can deploy as much nodes you wants (or your host machine is able too run).
@@ -19,7 +35,7 @@ Pods are only available for Calico and the Kubernetes Dashboard.
 The base configuration is in file `ansible/kubernets/files/kubeconfig` defined. 
 Feel free to change the configuration.
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 clusters:
@@ -41,20 +57,20 @@ You have the full control of all of the versions you want to use:
 - Save for restart of complete Kubernetes
 
 The installation process contains 
-- etcd service as a clustered key/value store (https://etcd.io/)
-- docker-service (https://www.docker.com/)
-- CoreDNS as the DNS server (https://coredns.io/)
-- kubernetes services (https://kubernetes.io/)
+- etcd service as a clustered key/value store (https://etcd.io/), version 3.3.18
+- docker-service (https://www.docker.com/), version 19.03.5
+- CoreDNS as the DNS server (https://coredns.io/), version 1.6.2
+- kubernetes services (https://kubernetes.io/), version 1.17.0
   - kubelet
   - kube-apiserver
-  - kube-controller-manager
+  - kube-controller-manager### Dashboard
   - kube-proxy
   - kube-scheduler
 
   
 Additional Controller which will be installed are 
-- Calico for the network and policy controlling (https://www.projectcalico.org/)
-- [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) 
+- Calico for the network and policy controlling (https://www.projectcalico.org/), version 3.11.1
+- [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), version 2.0.0-beta8
 
 ### Requirements 
 - Vagrant (https://www.vagrantup.com/), tested with version 2.2.4
