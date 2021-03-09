@@ -32,7 +32,7 @@ The deployment based on Vagrant with Virtualbox and Ansible.
 The base setup contains only a base configuration for a cluster. 
 Pods are only available for Calico and the Kubernetes Dashboard.
 
-The base configuration is in file `ansible/kubernets/files/kubeconfig` defined. 
+The base configuration is in file `kubernets/files/kubeconfig` defined. 
 Feel free to change the configuration.
 
 ```yaml
