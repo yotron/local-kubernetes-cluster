@@ -1,0 +1,16 @@
+master:
+  k8s-master:
+    ansible_host: 172.18.18.101
+
+nodes:
+  k8s-node-01:
+    ansible_host: 172.18.18.102
+  k8s-node-02:
+    ansible_host: 172.18.18.103
+
+kubernetes:
+  children:
+    master:
+    nodes:
+  vars:
+    ansible_password: vagrant
