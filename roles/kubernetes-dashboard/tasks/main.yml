@@ -1,9 +1,0 @@
-- name: Copy k8s-dashboard manifest
-  become: false
-  copy:
-    src: k8s-dashboard.yml
-    dest: ~/manifests/k8s-dashboard.yml
-- name: install Kubernetes Dashboard network and policy controller
-  command: kubectl apply -f ~/manifests/k8s-dashboard.yml
-  become: false
-  ignore_errors: yes
